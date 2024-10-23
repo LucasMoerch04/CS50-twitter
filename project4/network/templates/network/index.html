@@ -1,0 +1,110 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    
+    <div id="allPostsContainer">
+        <div id="timelineTab">
+            <a id="allTab" href="{% url 'index' %}">All Posts</a>
+            {% if user.is_authenticated %}
+                <a id="followingTab" href="{% url 'following' %}">Following</a>
+            {% endif %}
+        </div>
+            {% if user.is_authenticated %}
+            <form action="{% url 'new_post' %}" method="post">
+                {% csrf_token %}
+                <div id="newPost">
+                    <a id="newPostPfp" href="/profile/{{ user.id }}"><img class="pfp" src="{{ user.pfp }}"></a>
+                        <textarea maxlength="400" id="newPostInput" placeholder="What is happening?!" type="text" name="body"></textarea>
+                        <div id="contentArea"></div>
+                    <div id="bottomNewPost">
+                        <label for="imageUpload" class="fa-solid fa-image"></label>
+                        <input type="file" id="imageUpload" name="image"><i class="fa-solid fa-bars-progress"></i>
+                        <input type="text" id="dataURL" name="dataURL">
+                        <i class="fa-solid fa-face-laugh"></i>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <button id="newPostBtn" type="submit">Post</button>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div id="newPost">
+                    <textarea maxlength="400" id="newPostInputNOT" placeholder="Log in to post" type="text" name="body"></textarea>
+                    <div id="contentArea"></div>
+                    <div id="bottomNewPost">
+                        <label for="imageUpload" class="fa-solid fa-image"></label>
+                        <input type="file" id="imageUpload" name="image"><i class="fa-solid fa-bars-progress"></i>
+                        <input type="text" id="dataURL" name="dataURL">
+                        <i class="fa-solid fa-face-laugh"></i>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <button id="newPostBtn" type="submit">Post</button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+        
+        
+        <div id="timeline">
+            {% for post in posts %}
+                <div class="post" id="{{ post.id }}">
+                    <div id="leftSide">
+                        <img class="pfp" id="postPfp" src="{{ post.author.pfp }}">
+                    </div>
+                    <div id="rightSide">
+                    <div id="topPost">
+                        <a id="postAuthor" href="/profile/{{ post.author.id }}"> <strong>{{ post.author }}</strong></a>
+                        <div id="postDatetime"> ∙ {{ post.datetime }}</div>
+                        {% if user.id == post.author.id%}
+                            <a href="#!"><i id="postEdit" class="fa-solid fa-pen"></i></a>
+                        {% endif %}
+                    </div>
+                    <div id="postBody">{{ post.body }}</div>
+                    {% if post.image %}
+                        <img id="postImage" src="{{ post.image }}">              
+                    {% endif %}
+                    <div id="bottomPost">
+                        <i id="postRetweet" class="fa-solid fa-retweet"></i>
+                        <i id="postComment" class="fa-regular fa-comment"></i>
+                        {% if post.id in user_liked_posts %}
+                            <a id="postLike" class="likeRed" href="#!">
+                                <i id="likeBtn" class="fa-solid fa-heart"></i>
+                                <div id="postLikeCount">{{ post.like_count }}</div>
+                            </a>
+                        {% else %}
+                            <a id="postLike" class="likeGray" href="#!">
+                                <i id="likeBtn" class="fa-regular fa-heart"></i>
+                                <div id="postLikeCount">{{ post.like_count }}</div>
+                            </a>
+                        {% endif %}
+                        <i id="postViews" class="fa-solid fa-bars-staggered"></i>                    </div>
+                </div>
+            </div>
+                
+            {% endfor %}
+
+            
+            </div>
+            <div class="pagination">
+                <div class="step-links">
+                    {% if posts.has_previous %}
+                        <a id="pFirst" href="?page=1"> <i class="fa-solid fa-angles-left"></i></a>
+                        <a id="pPrevious" href="?page={{ posts.previous_page_number }}"><i class="fa-solid fa-angle-left"></i></a>
+                    {% endif %}
+            
+                    <div id="pCurrent">
+                        Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                    </div>
+            
+                    {% if posts.has_next %}
+                        <a id="pNext" href="?page={{ posts.next_page_number }}"><i class="fa-solid fa-angle-right"></i></a>
+                        <a id="pLast" href="?page={{ posts.paginator.num_pages }}"><i class="fa-solid fa-angles-right"></i></a>
+                    {% endif %}
+                </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <div id="profilePage">
+        <div id="profileTop">
+            <img id="profileCover" src="{{ profile.pfp }}">
+            <div id="pfpContainer">
+                <img id="profilePfp" class="pfp" src="{{ profile.pfp }}">
+            </div>
+            <div id="editSection">
+                {% if user.is_authenticated and user.id == profile.id %}
+                    <button id="editProfile">Edit Profile</button>
+                {% elif user.is_authenticated and user.id != profile.id %}
+                    <form action="{% url 'edit_follow' profile_id=profile.id %}" method="post">
+                        {% csrf_token %}
+                        <button id="followBtn" type="submit">{{ followBtn }}</button>
+                    </form>
+                {% endif %}
+
+
+            </div>
+            <div id="profileBottom">
+            <div id="profileUser"> {{ profile.username}}</div>
+            <div id="followStats">
+                <div id="profileFollowers"> Followers: {{ follower_count}}</div>
+                <div id="profileFollowing"> Following: {{ following_count }}</div>
+            </div>
+            
+            </div>
+        </div>
+        <div id="timeline">
+            {% for post in posts %}
+            <div class="post" id="{{ post.id }}">
+                <div id="leftSide">
+                    <img class="pfp" id="postPfp" src="{{ post.author.pfp }}">
+                </div>
+                <div id="rightSide">
+                <div id="topPost">
+                    <a id="postAuthor" href="/profile/{{ post.author.id }}"> <strong>{{ post.author }}</strong></a>
+                    <div id="postDatetime"> ∙ {{ post.datetime }}</div>
+                    {% if user.id == post.author.id%}
+                        <a href="#!"><i id="postEdit" class="fa-solid fa-pen"></i></a>
+                    {% endif %}
+                </div>
+                <div id="postBody">{{ post.body }}</div>
+                {% if post.image %}
+                    <img id="postImage" src="{{ post.image }}">              
+                {% endif %}
+                <div id="bottomPost">
+                    <i id="postRetweet" class="fa-solid fa-retweet"></i>
+                    <i id="postComment" class="fa-regular fa-comment"></i>
+                    {% if post.id in user_liked_posts %}
+                        <a id="postLike" class="likeRed" href="#!">
+                            <i id="likeBtn" class="fa-solid fa-heart"></i>
+                            <div id="postLikeCount">{{ post.like_count }}</div>
+                        </a>
+                    {% else %}
+                        <a id="postLike" class="likeGray" href="#!">
+                            <i id="likeBtn" class="fa-regular fa-heart"></i>
+                            <div id="postLikeCount">{{ post.like_count }}</div>
+                        </a>
+                    {% endif %}
+                    <i id="postViews" class="fa-solid fa-bars-staggered"></i>                    </div>
+            </div>
+        </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <div class="step-links">
+                {% if posts.has_previous %}
+                    <a id="pFirst" href="?page=1"> <i class="fa-solid fa-angles-left"></i></a>
+                    <a id="pPrevious" href="?page={{ posts.previous_page_number }}"><i class="fa-solid fa-angle-left"></i></a>
+                {% endif %}
+        
+                <div id="pCurrent">
+                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                </div>
+        
+                {% if posts.has_next %}
+                    <a id="pNext" href="?page={{ posts.next_page_number }}"><i class="fa-solid fa-angle-right"></i></a>
+                    <a id="pLast" href="?page={{ posts.paginator.num_pages }}"><i class="fa-solid fa-angles-right"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

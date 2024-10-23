@@ -1,0 +1,526 @@
+@font-face {
+    font-family: "Gotham";
+    src: url("/static/network/fonts/Gotham/GothamNarrow-Book.otf");
+}
+
+* {
+    font-family: Gotham, Arial, Helvetica, sans-serif;
+    scrollbar-color: rgb(62, 65, 68) rgb(22, 24, 28);
+
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: black;
+    height: 100vh;
+    color: whitesmoke;
+    
+}
+
+#leftContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: fit-content;
+}
+
+#header {     
+    width: 100%;
+    color: whitesmoke;
+    padding-left: 26%;
+    padding-bottom: 5%;   
+    font-size: 1.3em;
+   
+}
+#header img {
+    width: 8em;
+}
+
+.navbar{
+    padding-top: 0%;
+    padding-left: 20%;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.navbar i {
+    padding-right: 10px;
+}
+
+.navbar a, .navbar li{
+    color: whitesmoke;
+    list-style: none;
+    padding-bottom: 1em;
+}
+
+#navUser {
+    margin-top: 20%;
+}
+
+#rightContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#indexContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#allPostsContainer{
+    display: flex;
+    flex-direction: column;
+    width: 150%;
+}
+
+
+
+#timelineTab {
+    display: flex;
+    border: 1px solid #313032;
+    color: whitesmoke;
+    
+}
+
+#timelineTab a {
+    text-decoration: underline 3px #1DA1F2;
+    text-underline-offset: .9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 3em;
+    font-weight: bolder;
+    color: #727075;
+}
+
+#timelineTab a:hover {
+    background-color: #1a191a;
+}
+
+#newPost{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 1em;
+    border: 1px solid #313032;
+
+}
+
+#newPostInput, #newPostInputNOT {
+    width: 85%;
+    background-color: black;
+    border: none;
+    resize: none;
+    overflow: hidden;
+    font-size: 1.3em;
+    padding-top: .7em;
+    color: whitesmoke;
+
+}
+
+#newPostInputNOT {
+    margin-left: 10%;
+}
+
+
+#newPostInput:focus {
+    border-bottom: 1px solid rgb(49, 48, 50);
+    outline: none;
+    color: whitesmoke;
+}
+
+#newPostInput::placeholder {
+    font-size: 1em;
+    font-weight: 500;
+}
+
+#newPostPfp {
+    width: 10%;
+    padding-left: 2%;
+    padding-top: 2%;
+}
+
+#contentArea {
+    display: flex;
+    width: 89%;
+    margin-left: auto;
+
+}
+
+#contentArea img {
+    padding-bottom: .7em;
+    max-width: 80%;
+}
+
+#dataURL {
+    display: none;
+}
+
+#bottomNewPost{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-left: 11%;
+    align-items: center;
+    gap: 1em;
+    padding-bottom: 10px;
+}
+
+#bottomNewPost i, #bottomNewPost label {
+    font-size: 1.1em;
+    vertical-align: middle;
+    color: #2388c7;
+}
+
+#bottomNewPost i:hover {
+    cursor: pointer;
+}
+
+#bottomNewPost label {
+    width: 1.1em;
+    height: 1.1em;
+    margin-bottom: -2px;
+    cursor: pointer;
+}
+
+#bottomNewPost input[type="file"] {
+    display: none; 
+}
+
+
+
+
+#newPostBtn {
+    background-color: #045a8f;
+    border: none;
+    border-radius: 25px;
+    width: 68px;
+    height: 36px;
+    color: #abadb0af;
+    font-weight: bolder;
+    margin-left: auto;
+    font-size: 1em;
+    margin-right: 5%;
+}
+
+#timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 30em;
+    width: 100%;
+    border: .1em solid rgb(49, 48, 50);
+
+}
+
+.post {
+    width: 100%;
+    border-bottom: .1em rgb(49, 48, 50) solid;
+    height: fit-content;
+    margin-top: -1px;
+    padding-top: .8em;
+    padding-left: .7em;
+    padding-right: .7em;
+    padding-bottom: .8em;
+    flex-direction: row;
+}
+
+.post:nth-child(1) {
+    border-top: .1em rgb(49, 48, 50) solid;
+
+}
+
+#topPost{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#postImage {
+    max-width: 95%;
+    margin-bottom: 1em;
+    margin-left: 5px;
+}
+
+#postImage {
+    border: #313032 1px solid;
+    border-radius: 25px;
+
+}
+
+#bodyTextarea {
+    background-color: black;
+    outline: none;
+    border: none;
+    color: whitesmoke;
+    height: fit-content;
+    resize: none;
+}
+
+
+#leftSide {
+    width: fit-content;
+    height: 2px;
+}
+
+#rightSide {
+    margin-left: 45px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#postAuthor{
+    color: whitesmoke;
+    font-size: 1em;
+    padding-left: 5px;
+}
+
+#postDatetime{
+    margin-right: auto;
+    padding-left: 1%;
+    font-size: 1em;
+    color: rgb(108, 112, 117);
+}
+
+#postEdit {
+    display: none;
+    color: #1DA1F2;
+    margin-right: 1em;
+
+}
+
+#saveBtn {
+    background-color: #2388c7;
+    color: whitesmoke;
+    border: none;
+    border-radius: 25px;
+    margin-right: 1em;
+    margin-left: 1em;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    font-size: .8em;
+
+}
+
+#postBody {
+    padding-left: 5px;
+    padding-bottom: .3em;
+}
+
+#bottomPost{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #777579;
+    margin-top: auto;
+    padding-left: 5px;
+}
+
+
+
+#postLike, #postComment, #postRetweet, #postViews {
+    display: flex;
+    padding-right: 4px;
+    color: #777579;
+    text-decoration: none;
+    font-size: 1em;
+    align-items: center;
+    padding-right: 25%;
+}
+
+
+
+.likeRed i, .likeRed div {
+    color: #f21d4b;
+}
+
+#postLikeCount{
+    padding-left: 3px;
+}
+
+#postLike:hover {
+    color: #f21d4b;
+}
+
+
+.pfp {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    
+}
+
+.pfbNav {
+    width: 45px;
+}
+
+.step-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5em;
+    border: none;
+    flex-direction: row;
+    
+}
+
+.pagination i {
+    font-size: 1.5em;
+    color: #2388c7;
+    padding: 1px;
+}
+
+#pCurrent {
+    font-weight: 600;
+    font-size: .9em;
+    color: #1DA1F2;
+    margin-bottom: 5px;
+    
+}
+
+#profilePage {
+    display: flex;
+    flex-direction: column;
+    width: 150%;
+}
+
+#profileTop{
+    border: .1em rgb(49, 48, 50) solid;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#profileCover {
+    width: 100%;
+    height: 10em;
+    object-fit: cover;
+    filter: blur(3px)
+}
+
+#pfpContainer {
+    position: relative;
+    width: 10em;
+    height: 10em;
+    margin-bottom: -25%;
+    bottom: 30%;
+    z-index: 1;
+}
+
+#imgIcon {
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+    opacity: 50%;
+    font-size: 2em;
+    pointer-events: none;
+}
+
+
+#profilePfp {
+    width: 100%;
+    height: 100%;
+    border: 3px solid black;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#uploadPicture {
+    position: absolute;
+    background-color: #1a191a;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    cursor: pointer; /* Change cursor to pointer */
+    padding-top: 100%;
+    opacity: 50%;
+}
+
+
+#uploadPicture::file-selector-button {
+    size: 0%;
+}
+
+#followStats {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#profileUser {
+    font-weight: bolder;
+    font-size: 1.5em;
+}
+
+#profileFollowers, #profileFollowing {
+    padding-right: 2em;
+}
+
+#profileBottom {
+    padding-left: 1em;
+    padding-bottom: .5em;
+}
+
+
+
+#editSection {
+    display: flex;
+    justify-content: end;
+    margin: 3%;
+}
+
+#editProfile, #saveImage, #followBtn {
+    background-color: black;
+    font-weight: bold;
+    color: whitesmoke;
+    border: 1px solid rgb(122, 121, 121);
+    border-radius: 25px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#loginContainer{
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#loginCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #727075;
+    border-radius: 10%;
+    
+    width: 30vw;
+    height: 60vh;
+}
+
+
+
+
+
+
+
